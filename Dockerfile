@@ -4,4 +4,6 @@ WORKDIR /src
 
 RUN apk add --update
 
+EXPOSE 8080
+
 CMD ["npm", "start"]

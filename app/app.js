@@ -1,6 +1,7 @@
 import './config';
 import express from 'express';
 import exhbs from 'express-handlebars';
+import bodyParser from 'body-parser';
 import path from 'path';
 import router from './routes';
 
@@ -18,6 +19,9 @@ app.engine(
 );
 app.set('view engine', 'hbs');
 app.use(express.static('public'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //for cors
 app.all('*', (req, res, next) => {
