@@ -8,23 +8,18 @@ const dynamicRouteImport = (app) => {
 		try {
 			files.forEach((file) => {
 				const routeFile = file.replace('.js', '');
-				const routePath = `./${routeFile}`;
 				if (routeFile !== 'index') {
-                    //載入檔案
+					const routePath = `./${routeFile}`;
 					const obj = require(routePath);
-					for (let key in obj) {
+					Object.keys(obj).forEach(key => {
 						if (typeof obj[key] === 'function') {
-							if (routeFile === 'home') {
-								app.use('/', obj[key]);
-							} else {
-								app.use(`/${routeFile}`, obj[key]);
-							}
+							routeFile === 'home' ? app.use('/', obj[key]) : app.use(`/${routeFile}`, obj[key]);
 						}
-					}
+					})
 				}
 			});
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 	});
 };
